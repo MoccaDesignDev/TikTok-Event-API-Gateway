@@ -1,5 +1,6 @@
 import httpx
 import os
+import app.privacy import hash_user_data
 
 TIKTOK_API_MODE = os.getenv("TIKTOK_API_MODE", "mock")
 MOCK_TIKTOK_URL = os.getenv(
@@ -19,7 +20,7 @@ def transform_to_tiktok_payload(payload, event_id, timestamp):
                 "page":{
                     "url":payload.url
                 },
-                "user": payload.user_data,
+                "user": hash_user_data(payload.user_data),
                 "properties": payload.custom_data
             }
         ]
